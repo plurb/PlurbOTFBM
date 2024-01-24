@@ -1,2 +1,2 @@
-# PlurbOTFBM
+# Zephy Battle Maps!
 An API to render battlemaps on the fly!
