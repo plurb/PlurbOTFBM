@@ -1,0 +1,3 @@
+"""
+Map rendering endpoints.
+"""
