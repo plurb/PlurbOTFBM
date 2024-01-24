@@ -9,12 +9,9 @@ from PIL import Image
 from cffi import FFI
 from fastapi import HTTPException
 
-from util.exceptions import OTFBMException
+from util.exceptions import ZephyrException
 
 ffi = FFI()
-
-
-
 
 
 def __is_valid_hexa_code(code: str) -> bool:
@@ -71,7 +68,7 @@ def parse_hex_color(color: str) -> rl.Color:
 
         err_data = {"code": 400, "message": "Invalid color code"}
 
-        raise OTFBMException("Hexadecimal parser error", err_data)
+        raise ZephyrException("Hexadecimal parser error", err_data)
 
     # convert hexadecimal to rgba
     values = __hex_to_rgba(color)
@@ -111,7 +108,7 @@ def get_image_bytes_as_png(image: rl.Image) -> bytes:
     return png
 
 
-class OTFBMImageFormatPrefix:
+class ZephyrImageFormatPrefix:
     """
     The image format prefix. Currently only supports PNG, JPG, and BMP.
     """
@@ -132,15 +129,15 @@ def load_image_from_url(url: str) -> rl.Image:
     response = requests.get(url)
     dat = response.content
 
-    if dat.startswith(OTFBMImageFormatPrefix.PNG):
+    if dat.startswith(ZephyrImageFormatPrefix.PNG):
         img_format = ".png"
-    elif dat.startswith(OTFBMImageFormatPrefix.JPG):
+    elif dat.startswith(ZephyrImageFormatPrefix.JPG):
         img_format = ".jpg"
-    elif dat.startswith(OTFBMImageFormatPrefix.BMP):
+    elif dat.startswith(ZephyrImageFormatPrefix.BMP):
         img_format = ".bmp"
     else:
         err_dat = {"code": 400, "message": "Unsupported image format."}
-        raise OTFBMException("Unsupported image format", err_dat)
+        raise ZephyrException("Unsupported image format", err_dat)
 
     img_f = rl.load_image_from_memory(img_format, response.content, len(response.content))
 

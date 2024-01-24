@@ -29,9 +29,9 @@ SOFTWARE.
 from fastapi.responses import FileResponse
 
 from endpoints import basic
-from util.server import OTFBMServerContext
+from util.server import ZephyrServerContext
 
-app = OTFBMServerContext()
+app = ZephyrServerContext()
 
 app.include_router(basic.router)
 
@@ -59,5 +59,3 @@ async def root():
 )
 async def cat():
     return FileResponse("cat.png", media_type="image/png")
-
-

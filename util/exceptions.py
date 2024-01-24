@@ -1,17 +1,17 @@
 from colorama import Fore
 
-from util.server import OTFBMServerContext
+from util.server import ZephyrServerContext
 from fastapi.exceptions import HTTPException
 
 
 def handle_server_error(error_code, message):
-    if not OTFBMServerContext.active_context:
+    if not ZephyrServerContext.active_context:
         return
 
     raise HTTPException(status_code=error_code, detail=message)
 
 
-class OTFBMException(Exception):
+class ZephyrException(Exception):
     def __init__(self, message, error_data: dict):
         super().__init__(message)
 
@@ -21,7 +21,7 @@ class OTFBMException(Exception):
         self.handle_cli_error()
 
     def handle_cli_error(self):
-        if OTFBMServerContext.active_context:
+        if ZephyrServerContext.active_context:
             return
 
         # print statements go brr!
