@@ -9,8 +9,7 @@ from fastapi.responses import FileResponse
 from endpoints import basic
 from util.server import OTFBMServerContext
 
-app = OTFBMServerContext().get_app()
-
+app = OTFBMServerContext()
 
 app.include_router(basic.router)
 

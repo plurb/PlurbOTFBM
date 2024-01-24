@@ -113,7 +113,7 @@ def get_image_bytes_as_png(image: rl.Image) -> bytes:
 
 class OTFBMImageFormatPrefix:
     """
-    The Image Format Prefix. Currently only supports PNG, JPG, and BMP
+    The image format prefix. Currently only supports PNG, JPG, and BMP.
     """
 
     PNG = bytes([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
@@ -145,7 +145,8 @@ def load_image_from_url(url: str) -> rl.Image:
     img_f = rl.load_image_from_memory(img_format, response.content, len(response.content))
 
     if img_format != ".png":
-        # hacky solution to non-png formats
+        # hacky solution to non-png formats looking strange
+
         img = rl.gen_image_color(img_f.width, img_f.height, rl.WHITE)
         rect = rl.Rectangle(0, 0, img_f.width, img_f.height)
         rl.image_draw(img, img_f, rect, rect, rl.WHITE)

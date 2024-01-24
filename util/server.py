@@ -3,7 +3,7 @@ import pyray as rl
 from fastapi import FastAPI
 
 
-class OTFBMServerContext:
+class OTFBMServerContext(FastAPI):
     """
     Singleton context manager. Ensures that there is only one active server, and ensures that CLI and FastAPI usage of
     the renderer throw the correct error message if there is an active server or not.
@@ -19,12 +19,9 @@ class OTFBMServerContext:
         return cls.active_context
 
     def __init__(self):
-        self._app = FastAPI()
+        super().__init__()
 
         # Initialize raylib with hidden window
         rl.set_config_flags(rl.ConfigFlags.FLAG_WINDOW_HIDDEN)
         rl.init_window(0, 0, "test window")
-
-    def get_app(self):
-        return self._app
 
